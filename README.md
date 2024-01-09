@@ -119,6 +119,8 @@ Notice that this sequence is just an example, and it is possible to selectively 
 
 ### Tools status:
 
+- `tools/angr`:
+  * angr symbolic execution
 - `tools/backlifter`:
   * Proof-producing
   * Clear interface
@@ -160,6 +162,17 @@ Notice that this sequence is just an example, and it is possible to selectively 
 - See HOL's Description Manual for more information about PolyML heaps.
 - You can temporarily change the heap chain order if you don't need a dependency
   in order to reduce build times.
+
+### HolBA BIR support in angr
+
+Python package for HolBA BIR support for angr framework.
+
+#### Install
+
+```bash
+cd src/angr
+git clone https://github.com/FMSecure/bir_angr.git python
+```
 
 ## References
 
