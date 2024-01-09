@@ -174,6 +174,13 @@ cd src/angr
 git clone https://github.com/FMSecure/bir_angr.git python
 ```
 
+#### Configure
+
+Add the following to the `config.env.sh` file:
+```bash
+export       HOLBA_ANGR_USE_PYTHONDIR=1
+```
+
 ## References
 
 * D. Lundberg, R. Guanciale, A. Lindner and M. Dam, **"Hoare-Style Logic for Unstructured Programs"**, in Software Engineering and Formal Methods, pp. 193-213, 2020. [Link](https://doi.org/10.1007/978-3-030-58768-0_11). _(program logic used for decomposition of verification)_
