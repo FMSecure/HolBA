@@ -107,6 +107,7 @@ Notice that this sequence is just an example, and it is possible to selectively 
    │  ├─ models: Additional machine models
    │  └─ tools: Theories for the tool libraries in src/tools
    └─ tools
+      ├─ angr: angr symbolic execution
       ├─ backlifter: Gets ISA-level contracts from BIR contracts
       ├─ cfg: Control Flow Graph utilities
       ├─ comp: Composition of contracts
@@ -119,8 +120,6 @@ Notice that this sequence is just an example, and it is possible to selectively 
 
 ### Tools status:
 
-- `tools/angr`:
-  * angr symbolic execution
 - `tools/backlifter`:
   * Proof-producing
   * Clear interface
