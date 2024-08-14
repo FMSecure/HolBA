@@ -89,7 +89,7 @@ val hw_obs_model_id = ref "";
 val do_enum = ref false;
 val do_training = ref false;
 val do_conc_exec = ref false;
-val angr_symbexec = ref true;
+val angr_symbexec = ref false;
 val do_patching = ref false;
 val do_run_exps = ref false;
 val board_type = ref "";
@@ -371,7 +371,7 @@ fun next_experiment all_exps next_relation (entry,exits) =
         val _ = min_verb 3 (fn () =>
                                bir_exp_pretty_print rel);
         val _ = printv 4 ("Word relation\n");
-        val new_word_relation = make_word_relation rel false;
+        val new_word_relation = make_word_relation rel true;
         val print_word_rel_wtypes = false;
         val term_to_string_sel = if print_word_rel_wtypes then term_to_string_wtypes else term_to_string;
         val _ = min_verb 4 (fn () =>
@@ -613,6 +613,10 @@ fun match_obs_model obs_model =
         "cache_straightline"
       | cache_tag_index_part_page =>
         "cache_tag_index_part_page"
+      | pc_only =>
+        "pc_only"
+      | empty =>
+        "empty"
       | _ => raise ERR "match_obs_model" ("unknown obs_model " ^ PolyML.makestring obs_model);
 
 fun match_hw_obs_model hw_obs_model =

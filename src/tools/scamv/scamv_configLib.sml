@@ -32,6 +32,8 @@ datatype obs_model = mem_address_pc
 		   | cache_speculation_idx
                    | cache_speculation_first
                    | cache_straightline
+		   | pc_only
+		   | empty
 
 datatype hw_obs_model = hw_cache_tag_index
                       | hw_cache_index_numvalid
@@ -72,7 +74,7 @@ val default_cfg = { max_iter  = 10
                   , do_training = false
                   , run_description = NONE
                   , exec_conc = false
-		  , angr_symbexec = true
+		  , angr_symbexec = false
 		  , do_patching = false
                   }
 
@@ -101,6 +103,8 @@ fun obs_model_fromString om =
       | "cache_speculation_idx"     => SOME cache_speculation_idx
       | "cache_speculation_first"   => SOME cache_speculation_first
       | "cache_straightline"        => SOME cache_straightline
+      | "pc_only"                   => SOME pc_only
+      | "empty"                     => SOME empty
       | _                           => NONE
 
 fun hw_obs_model_fromString hwom =
@@ -479,8 +483,8 @@ val opt_table =
               handle_conv_arg_with (fn x => SOME (SOME x)) set_run_description)
     , Arity0 ("ec", "exec_conc", "Execute generated states to validate obs eq",
               fn cfg => fn b => set_exec_conc cfg b)
-    , Arity0 ("angroff", "angr_symbexec_off", "Use angr symbolic execution",
-              fn cfg => fn b => set_angr_symb_exec cfg (not b))
+    , Arity0 ("angr_on", "angr_symbexec_on", "Use angr symbolic execution",
+              fn cfg => fn b => set_angr_symb_exec cfg  b)
     , Arity0 ("patch", "patching", "Program patching (only fence insertion in LLVM programs)",
               fn cfg => fn b => set_do_patching cfg b)
     , Arity1 ("hsmtltl", "holsmt_library_trace_level", "Set HolSmt library trace level (e.g., 4 to keep z3 temporary exchange files)",
@@ -520,7 +524,7 @@ fun print_scamv_opt_usage () =
         print "Scam-V Usage:\n\n";
         List.map print_entry opt_table;
         print ("\ngenerator arg should be one of: rand, prefetch_strides, qc, slice, file, list, binary, llvm\n");
-        print ("\nobs_model arg should be one of: mem_address_pc, mem_address_pc_lspc, cache_tag_index, cache_tag_only, cache_index_only, cache_tag_index_part, cache_tag_index_part_page, cache_speculation, cache_speculation_idx, cache_speculation_first, cache_straightline\n");
+        print ("\nobs_model arg should be one of: mem_address_pc, mem_address_pc_lspc, cache_tag_index, cache_tag_only, cache_index_only, cache_tag_index_part, cache_tag_index_part_page, cache_speculation, cache_speculation_idx, cache_speculation_first, cache_straightline, pc_only, empty\n");
         print ("\nrefined_obs_model arg is like obs_model\n");
         print ("\nobs_projection is an observation id as a number\n");
         print ("\nhw_obs_model arg should be one of: hw_cache_tag_index, hw_cache_index_numvalid, hw_cache_tag_index_part, hw_cache_tag_index_part_page\n");
